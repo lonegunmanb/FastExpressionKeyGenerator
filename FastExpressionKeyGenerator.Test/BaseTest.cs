@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
 
@@ -80,6 +82,18 @@ namespace FastExpressionKeyGenerator.Test
             Expression<Func<int, bool>> exp1 = i => i == int.Parse(string1);
             Expression<Func<int, bool>> exp2 = i => i == int.Parse(string2);
             Assert.NotEqual(exp1.GetKey(false), exp2.GetKey(false));
+        }
+
+        [Fact]
+        public void ilist_contains()
+        {
+            IList<string> list1 = new string[] {"a", "b"};
+            IList<string> list2 = new string[] {"c"};
+            Expression<Func<string, bool>> exp1 = s => list1.Contains(s);
+            Expression<Func<string, bool>> exp2 = s => list2.Contains(s);
+            var key1 = exp1.GetKey(false);
+            var key2 = exp2.GetKey(false);
+            Assert.NotEqual(key1, key2);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace FastExpressionKeyGenerator
             var replacements = (from x in map
                                 where x.Param != null && x.Param.IsGenericType
                                 let g = x.Param.GetGenericTypeDefinition()
-                                where g == typeof(IEnumerable<>) || g == typeof(List<>)
+                                where g == typeof(IEnumerable<>) || g == typeof(List<>) || g == typeof(IList<>)
                                 where x.Arg.NodeType == ExpressionType.Constant
                                 let elementType = x.Param.GetGenericArguments().First()
                                 let printer = MakePrinter((ConstantExpression)x.Arg, elementType)
